@@ -8,7 +8,7 @@
 #===============================================
 
 # 修改默认IP
-# sed -i 's/192.168.1.1/10.0.0.1/g' package/base-files/files/bin/config_generate
+sed -i 's/192.168.1.1/192.168.2.251/g' package/base-files/files/bin/config_generate
 
 # Change default shell to zsh
 # sed -i 's/\/bin\/ash/\/usr\/bin\/zsh/g' package/base-files/files/etc/passwd
@@ -20,10 +20,10 @@ rm -rf feeds/luci/applications/luci-app-wrtbwmon
 rm -rf feeds/luci/applications/luci-app-dockerman
 
 # 添加额外软件包
-git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
-git clone --depth 1 https://github.com/Jason6111/luci-app-netdata package/luci-app-netdata
-git clone --depth 1 -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
-svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
+#git clone --depth 1 https://github.com/kongfl888/luci-app-adguardhome package/luci-app-adguardhome
+#git clone --depth 1 https://github.com/Jason6111/luci-app-netdata package/luci-app-netdata
+#git clone --depth 1 -b lede https://github.com/pymumu/luci-app-smartdns package/luci-app-smartdns
+#svn co https://github.com/lisaac/luci-app-dockerman/trunk/applications/luci-app-dockerman package/luci-app-dockerman
 
 # 科学上网插件
 git clone --depth 1 https://github.com/jerrykuku/luci-app-vssr package/luci-app-vssr
@@ -80,21 +80,21 @@ svn co https://github.com/sbwml/luci-app-mosdns/trunk/luci-app-mosdns package/lu
 svn co https://github.com/sbwml/luci-app-mosdns/trunk/mosdns package/mosdns
 
 # 流量监控
-svn co https://github.com/haiibo/packages/trunk/luci-app-wrtbwmon package/luci-app-wrtbwmon
-svn co https://github.com/haiibo/packages/trunk/wrtbwmon package/wrtbwmon
+#svn co https://github.com/haiibo/packages/trunk/luci-app-wrtbwmon package/luci-app-wrtbwmon
+#svn co https://github.com/haiibo/packages/trunk/wrtbwmon package/wrtbwmon
 
 # Alist
-svn co https://github.com/sbwml/luci-app-alist/trunk/luci-app-alist package/luci-app-alist
-svn co https://github.com/sbwml/luci-app-alist/trunk/alist package/alist
+#svn co https://github.com/sbwml/luci-app-alist/trunk/luci-app-alist package/luci-app-alist
+#svn co https://github.com/sbwml/luci-app-alist/trunk/alist package/alist
 
 # iStore
-svn co https://github.com/linkease/istore-ui/trunk/app-store-ui package/app-store-ui
-svn co https://github.com/linkease/istore/trunk/luci package/istore
+#svn co https://github.com/linkease/istore-ui/trunk/app-store-ui package/app-store-ui
+#svn co https://github.com/linkease/istore/trunk/luci package/istore
 
 # 在线用户
-svn co https://github.com/haiibo/packages/trunk/luci-app-onliner package/luci-app-onliner
-sed -i '/bin\/sh/a\uci set nlbwmon.@nlbwmon[0].refresh_interval=2s' package/lean/default-settings/files/zzz-default-settings
-sed -i '/nlbwmon/a\uci commit nlbwmon' package/lean/default-settings/files/zzz-default-settings
+#svn co https://github.com/haiibo/packages/trunk/luci-app-onliner package/luci-app-onliner
+#sed -i '/bin\/sh/a\uci set nlbwmon.@nlbwmon[0].refresh_interval=2s' package/lean/default-settings/files/zzz-default-settings
+#sed -i '/nlbwmon/a\uci commit nlbwmon' package/lean/default-settings/files/zzz-default-settings
 
 # 调整 x86 型号只显示 CPU 型号
 sed -i 's/${g}.*/${a}${b}${c}${d}${e}${f}${hydrid}/g' package/lean/autocore/files/x86/autocore
@@ -114,12 +114,12 @@ find package/*/ -maxdepth 2 -path "*/Makefile" | xargs -i sed -i 's/PKG_SOURCE_U
 find package/luci-theme-*/* -type f -name '*luci-theme-*' -print -exec sed -i '/set luci.main.mediaurlbase/d' {} \;
 
 # 调整 Dockerman 到 服务 菜单
-sed -i '13s/"config"/"overview"/g' package/luci-app-dockerman/luasrc/controller/*.lua
-sed -i 's/"admin"/"admin", "services"/g' package/luci-app-dockerman/luasrc/controller/*.lua
-sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/model/*.lua
-sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
-sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/view/dockerman/*.htm
-sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/view/dockerman/cbi/*.htm
+#sed -i '13s/"config"/"overview"/g' package/luci-app-dockerman/luasrc/controller/*.lua
+#sed -i 's/"admin"/"admin", "services"/g' package/luci-app-dockerman/luasrc/controller/*.lua
+#sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/model/*.lua
+#sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/model/cbi/dockerman/*.lua
+#sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/view/dockerman/*.htm
+#sed -i 's/"admin/"admin\/services/g' package/luci-app-dockerman/luasrc/view/dockerman/cbi/*.htm
 
 # 调整 ZeroTier 到 服务 菜单
 # sed -i '/"VPN"/d' feeds/luci/applications/luci-app-zerotier/luasrc/controller/zerotier.lua
